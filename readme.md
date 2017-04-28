@@ -1,5 +1,7 @@
 # ![RealWorld Example App](logo.png)
 
+[![Gitter](https://img.shields.io/gitter/room/realworld-dev/spring.svg)](https://gitter.im/realworld-dev/spring)
+
 > ### Spring codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
 
