@@ -21,10 +21,15 @@ repositories {
 	mavenCentral()
 }
 
+bootRun {
+	systemProperties = System.properties
+}
+
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-security')
+	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
