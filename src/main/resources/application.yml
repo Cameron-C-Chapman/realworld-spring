@@ -8,3 +8,7 @@ datasource:
   password:
   driver-class-name: org.h2.Driver
   platform: h2
+---
+
+sql:
+  getAllArticles: "select a.slug, a.title, a.description, a.body, a.created_at, a.updated_at, a.favorite_count, u.username, u.bio, u.image, (select count(*) from follows where follower_user_id = 1 and following_user_id = a.author_id) as following, (select count(*) from favorites where article_id = a.id and user_id = 1) as favorited from articles a join users u on a.author_id=u.id" #@TODO: this user id is hard coded

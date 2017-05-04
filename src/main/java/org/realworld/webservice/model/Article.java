@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Article {
 
-    private Long id;
     private String title;
     private String slug;
     private String body;
@@ -12,17 +11,9 @@ public class Article {
     private Date updatedAt;
     private String description;
     private Tags tagList;
-    private Long author;
+    private ArticleAuthor author;
     private boolean favorited;
     private Integer favoritesCount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -80,11 +71,11 @@ public class Article {
         this.tagList = tagList;
     }
 
-    public Long getAuthor() {
+    public ArticleAuthor getAuthor() {
         return author;
     }
 
-    public void setAuthor(Long author) {
+    public void setAuthor(ArticleAuthor author) {
         this.author = author;
     }
 

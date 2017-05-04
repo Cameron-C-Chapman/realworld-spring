@@ -1,6 +1,7 @@
 package org.realworld.webservice;
 
 import org.realworld.webservice.manager.ArticleTransactionManager;
+import org.realworld.webservice.manager.AuthorTransactionManager;
 import org.realworld.webservice.model.Article;
 import org.realworld.webservice.model.ArticlesResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/articles")
 public class ArticleController {
 
     @Autowired
     ArticleTransactionManager articleTransactionManager;
 
-    @RequestMapping("/articles")
+    @Autowired
+    AuthorTransactionManager authorTransactionManager;
+
+    @RequestMapping(value={"", "/", "/feed", "/feed/"})
     public ResponseEntity<ArticlesResponse> getArticles() {
         ArticlesResponse response = new ArticlesResponse();
         List<Article> articles = articleTransactionManager.getArticles();
         response.setArticles(articles);
         response.setArticlesCount(articles.size());
+
         return new ResponseEntity<ArticlesResponse>(response, HttpStatus.OK);
     }
 
