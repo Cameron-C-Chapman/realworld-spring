@@ -5,6 +5,7 @@ public class User {
     private Long id;
     private String email;
     private String username;
+    private String password;
     private String bio;
     private String image;
 
@@ -26,6 +27,14 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setUsername(String username) {
