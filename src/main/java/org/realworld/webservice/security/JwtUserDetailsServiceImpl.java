@@ -1,6 +1,6 @@
 package org.realworld.webservice.security;
 
-import org.realworld.webservice.data.UserDao;
+import org.realworld.webservice.manager.UserTransactionManager;
 import org.realworld.webservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +14,11 @@ import java.util.Optional;
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
+    private UserTransactionManager userTransactionManager;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = this.userDao.getUserByUsername(username);
+        User user = this.userTransactionManager.getUserByUsername(username);
         return Optional.ofNullable(user)
                 .map(JwtUserFactory::create)
                 .orElseThrow(() ->
