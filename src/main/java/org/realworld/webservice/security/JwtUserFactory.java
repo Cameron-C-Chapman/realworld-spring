@@ -24,11 +24,11 @@ public class JwtUserFactory {
     }
 
     private static List<GrantedAuthority> mapToAuthorities() {
-        List<String> authorities = new ArrayList<String>();
+        List<String> authorities = new ArrayList<>();
         authorities.add("user");
 
         return authorities.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 

@@ -7,8 +7,9 @@ insert into articles
 insert into users
   (email, username, password, image, bio)
   values
-  ('user1@mail.com', 'user1', 'userPassword', 'user1ImageUrl', 'user1BioUrl')
+  ('user1@mail.com', 'user1', '$2a$06$lyHPBQI3pRjmNg8nTv58JOKbFSEF09SZgIX/30WrQA3IS99Y1NZsW', 'user1ImageUrl', 'user1BioUrl')
 ;
+-- password is password
 
 insert into favorites
   (user_id, article_id)
