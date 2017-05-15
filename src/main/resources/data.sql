@@ -22,3 +22,5 @@ insert into follows
 values
   (1, 1)
 ;
+
+insert into tags (tag) values ('material2'), ('angular'), ('springcloud'), ('microservices');

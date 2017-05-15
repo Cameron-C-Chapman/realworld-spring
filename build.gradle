@@ -30,7 +30,9 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
 	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
 	compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 	compile("io.jsonwebtoken:jjwt:0.7.0")
+	compile group: 'org.assertj', name: 'assertj-core', version: '3.7.0'
 	runtime('com.h2database:h2')
 	testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
