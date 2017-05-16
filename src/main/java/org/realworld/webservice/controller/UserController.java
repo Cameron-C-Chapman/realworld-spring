@@ -1,4 +1,4 @@
-package org.realworld.webservice;
+package org.realworld.webservice.controller;
 
 import org.realworld.webservice.security.JwtAuthenticationRequest;
 import org.realworld.webservice.security.JwtAuthenticationResponse;
@@ -22,11 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-public class AuthController {
+public class UserController {
 
-//    @Value("${jwt.header}")
-//    private String tokenHeader;
-    private String tokenHeader = "Authorization";
+    @Value("${jwt.header}")
+    private String tokenHeader;
 
 
     @Autowired
@@ -38,26 +37,23 @@ public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @RequestMapping(value = "auth", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
+    @RequestMapping(value = "users/login", method = RequestMethod.POST)
+    public ResponseEntity<?> userLogin(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
 
-        System.out.println("username = " + authenticationRequest.getUsername());
-        System.out.println("password = " + authenticationRequest.getPassword());
-
-        // Perform the security
+        // validate credentials and set authentication
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getUsername(),
+                        authenticationRequest.getEmail(),
                         authenticationRequest.getPassword()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Reload password post-security so we can generate token
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        // load authenticated users details and generate token
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        // Return the token
+        // return jwt token
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 

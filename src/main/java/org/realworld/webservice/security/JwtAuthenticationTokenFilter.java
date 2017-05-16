@@ -1,6 +1,7 @@
 package org.realworld.webservice.security;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -24,23 +26,25 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-//    @Value("${jwt.header}")
-//    private String tokenHeader;
-    private String tokenHeader = "Token";
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
+
+    @Value("${jwt.bearerHeader}")
+    private String bearerHeader;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+
+        // get auth header supporting both Token and Bearer as the header value
         String authToken = request.getHeader(this.tokenHeader);
-        // authToken.startsWith("Bearer ")
-        // String authToken = header.substring(7);
+        if (StringUtils.isEmpty(authToken)) {
+            authToken = request.getHeader(this.bearerHeader);
+        }
+
+        // get username from the auth request and if valid perform authentication
         String username = jwtTokenUtil.getUsernameFromToken(authToken);
+        if ( !(StringUtils.isEmpty(username)) && (SecurityContextHolder.getContext().getAuthentication() == null) ) {
 
-        System.out.print("checking authentication for user " + username);
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            // It is not compelling necessary to load the use details from the database. You could also store the information
-            // in the token and read it from it. It's up to you ;)
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
             // For simple validation it is completely sufficient to just check the token integrity. You don't have to call

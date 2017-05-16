@@ -28,4 +28,15 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
                 );
     }
 
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        User user = this.userTransactionManager.getUserByUsername(username);
+        return Optional.ofNullable(user)
+                .map(JwtUserFactory::create)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(
+                                String.format("No user found with username '%s'.", username)
+                        )
+                );
+    }
+
 }

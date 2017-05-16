@@ -1,4 +1,4 @@
-package org.realworld.webservice;
+package org.realworld.webservice.controller;
 
 import org.realworld.webservice.manager.ArticleTransactionManager;
 import org.realworld.webservice.manager.AuthorTransactionManager;
