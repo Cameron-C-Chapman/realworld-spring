@@ -43,14 +43,14 @@ public class UserController {
         // validate credentials and set authentication
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getEmail(),
-                        authenticationRequest.getPassword()
+                        authenticationRequest.getUser().getEmail(),
+                        authenticationRequest.getUser().getPassword()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // load authenticated users details and generate token
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUser().getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         // return jwt token

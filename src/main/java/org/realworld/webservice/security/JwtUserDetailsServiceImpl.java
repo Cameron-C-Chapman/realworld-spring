@@ -17,24 +17,13 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
     private UserTransactionManager userTransactionManager;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = this.userTransactionManager.getUserByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = this.userTransactionManager.getUserByEmail(email);
         return Optional.ofNullable(user)
                 .map(JwtUserFactory::create)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
-                                String.format("No user found with username '%s'.", username)
-                        )
-                );
-    }
-
-    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        User user = this.userTransactionManager.getUserByUsername(username);
-        return Optional.ofNullable(user)
-                .map(JwtUserFactory::create)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException(
-                                String.format("No user found with username '%s'.", username)
+                                String.format("No user found with email '%s'.", email)
                         )
                 );
     }

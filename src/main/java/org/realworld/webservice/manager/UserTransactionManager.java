@@ -13,8 +13,8 @@ public class UserTransactionManager {
     @Autowired
     private UserDao userDao;
 
-    public User getUserByUsername(String username) {
-        return userDao.getUserByUsername(username);
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
     }
 
 }

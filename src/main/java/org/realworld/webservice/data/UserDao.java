@@ -3,21 +3,28 @@ package org.realworld.webservice.data;
 import org.realworld.webservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class UserDao {
+
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     UserRowMapper userRowMapper;
 
-    @Value("${sql.getUserByUsername}")
-    private String getUserByUsername;
+    @Value("${sql.getUserByEmail}")
+    private String getUserByEmail;
 
-    public User getUserByUsername(String username) {
-        return jdbcTemplate.queryForObject(getUserByUsername, new Object[]{username}, userRowMapper);
+    public User getUserByEmail(String email) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("email", email);
+        return namedParameterJdbcTemplate.queryForObject(getUserByEmail, params, userRowMapper);
     }
+
 }
