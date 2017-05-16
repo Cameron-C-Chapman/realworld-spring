@@ -17,10 +17,16 @@ insert into favorites
   (1, 1)
 ;
 
+insert into tags (tag) values ('material2'), ('angular'), ('springcloud'), ('microservices');
+
+insert into users
+  (email, username, password, image, bio)
+  values
+  ('user2@mail.com', 'user2', '$2a$06$lyHPBQI3pRjmNg8nTv58JOKbFSEF09SZgIX/30WrQA3IS99Y1NZsW', 'user2ImageUrl', 'user2BioUrl')
+;
+
 insert into follows
 (follower_user_id, following_user_id)
 values
-  (1, 1)
+  (1, 2)
 ;
-
-insert into tags (tag) values ('material2'), ('angular'), ('springcloud'), ('microservices');

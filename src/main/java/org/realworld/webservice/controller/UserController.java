@@ -51,6 +51,10 @@ public class UserController {
 
         // load authenticated users details and generate token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUser().getEmail());
+
+        //TODO since email acts as an username we should put email as username in userdetails service
+
+
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         // return jwt token
