@@ -1,20 +1,10 @@
 package org.realworld.webservice;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.realworld.webservice.model.Profile;
-import org.realworld.webservice.model.Tags;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -22,10 +12,9 @@ import static org.junit.Assert.assertThat;
 
 public class ProfileControllerIntegrationTests extends AbstractAuthEnabledIntegrationTest {
 
-
     @Test
     public void getProfileByUsernameUnauthenticated() {
-        ResponseEntity<Profile> response = client.exchange("http://localhost:"+this.port+"/api/profiles/{username}",
+        ResponseEntity<Profile> response = client.exchange(getUrl("/api/profiles/{username}"),
                 HttpMethod.GET,
                 null,
                 Profile.class,
@@ -38,7 +27,7 @@ public class ProfileControllerIntegrationTests extends AbstractAuthEnabledIntegr
 
     @Test
     public void getProfileByUsernameFromFollower() {
-        ResponseEntity<Profile> response = client.exchange("http://localhost:"+this.port+"/api/profiles/{username}",
+        ResponseEntity<Profile> response = client.exchange(getUrl("/api/profiles/{username}"),
                 HttpMethod.GET,
                 new HttpEntity<>(getTokenHeaders()),
                 Profile.class,

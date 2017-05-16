@@ -19,4 +19,8 @@ public abstract class AbstractIntegrationTest {
     @Value("${local.server.port}")
     protected int port;
 
+    protected String getUrl(String param) {
+        return "http://localhost:" + this.port + param;
+    }
+
 }

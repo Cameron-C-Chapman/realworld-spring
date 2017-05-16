@@ -19,7 +19,7 @@ public abstract class AbstractAuthEnabledIntegrationTest extends AbstractIntegra
         headers.add("Content-Type", "application/json");
         headers.add("X-Requested-With", "XMLHttpRequest");
 
-        ResponseEntity<Map> result = client.exchange("http://localhost:" + this.port + "/users/login", HttpMethod.POST, new HttpEntity<>("{\"user\":{\"email\":\"user1@mail.com\", \"password\":\"password\"}}",
+        ResponseEntity<Map> result = client.exchange(getUrl("/users/login"), HttpMethod.POST, new HttpEntity<>("{\"user\":{\"email\":\"user1@mail.com\", \"password\":\"password\"}}",
                 headers), Map.class);
         this.token = result.getBody().get("token").toString();
     }
