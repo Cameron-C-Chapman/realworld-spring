@@ -1,5 +1,7 @@
 package org.realworld.webservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
 
     private Long id;
@@ -8,6 +10,7 @@ public class User {
     private String password;
     private String bio;
     private String image;
+    private String token;
 
     public Long getId() {
         return id;
@@ -55,6 +58,14 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }

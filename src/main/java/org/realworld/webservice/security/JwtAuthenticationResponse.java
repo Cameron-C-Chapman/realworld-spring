@@ -1,15 +1,18 @@
 package org.realworld.webservice.security;
 
+import org.realworld.webservice.model.User;
+
 public class JwtAuthenticationResponse {
 
-    private final String token;
+    private final User user;
 
-    public JwtAuthenticationResponse(String token) {
-        this.token = token;
+    public JwtAuthenticationResponse(User user, String token) {
+        this.user = user;
+        this.user.setToken(token);
     }
 
-    public String getToken() {
-        return this.token;
+    public User getUser() {
+        return user;
     }
 
 }
